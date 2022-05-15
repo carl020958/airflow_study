@@ -124,10 +124,10 @@ extract >> transform >> load
 
 """
 CREATE TABLE weather.weather_forecast (
- date date,
- temp float,
- min_temp float,
- max_temp float,
- created_date timestamp DEFAULT now()
+    date date,
+    temp float,
+    min_temp float,
+    max_temp float,
+    created_date timestamp DEFAULT now()
 );
 """
