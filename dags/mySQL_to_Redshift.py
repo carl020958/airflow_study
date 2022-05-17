@@ -4,13 +4,7 @@ from airflow.providers.amazon.aws.transfers.mysql_to_s3 import MySQLToS3Operator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 from airflow.providers.amazon.aws.operators.s3_delete_objects import S3DeleteObjectsOperator
 from airflow.models import Variable
-
 from datetime import datetime, timedelta
-
-import requests
-import logging
-import psycopg2
-import json
 
 
 select_sql = "SELECT * FROM {}.{} WHERE DATE(created_at) = DATE('{}')"\
