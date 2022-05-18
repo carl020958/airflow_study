@@ -83,41 +83,40 @@ default_args = {
 
 with DAG(
     "get_weather",
-    start_date = datetime(2022, 5, 7),
-    schedule_interval = "0 * * * *", 
-    max_active_runs = 3,
-    catchup = False,
-    default_args = default_args
-
+    start_date=datetime(2022, 5, 7),
+    schedule_interval="0 * * * *", 
+    max_active_runs=3,
+    catchup=False,
+    default_args=default_args
     ) as dag:
     
     extract = PythonOperator(
-            task_id = "extract",
-            python_callable = extract,
-            params = {
+            task_id="extract",
+            python_callable=extract,
+            params={
                 "api_key" : Variable.get("open_weather_api_key")
             },
-            provide_context = True,
-            dag = dag
+            provide_context=True,
+            dag=dag
             )
 
     transform = PythonOperator(
-            task_id = "transform",
-            python_callable = transform,
-            params = {},
-            provide_context = True,
-            dag = dag
+            task_id="transform",
+            python_callable=transform,
+            params={},
+            provide_context=True,
+            dag=dag
             )
 
     load = PythonOperator(
-            task_id = "load",
-            python_callable = load,
-            params = {
-                "schema" : Variable.get("weather_schema"),
-                "table" : Variable.get("weather_table")
+            task_id="load",
+            python_callable=load,
+            params={
+                "schema": Variable.get("weather_schema"),
+                "table": Variable.get("weather_table")
                 },
-            provide_context = True,
-            dag = dag
+            provide_context=True,
+            dag=dag
             )
 
 extract >> transform >> load

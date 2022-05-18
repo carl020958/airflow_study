@@ -95,26 +95,26 @@ default_args = {
 
 with DAG(
     "get_weather_v2",
-    start_date = datetime(2022, 5, 7),
-    schedule_interval = "0 * * * *", 
-    max_active_runs = 3,
-    catchup = False,
-    default_args = default_args
+    start_date=datetime(2022, 5, 7),
+    schedule_interval="0 * * * *", 
+    max_active_runs=3,
+    catchup=False,
+    default_args=default_args
 
     ) as dag:
 
     etl = PythonOperator(
-            task_id = "etl",
-            python_callable = etl,
-            params = {
+            task_id="etl",
+            python_callable=etl,
+            params={
                 "seoul_lat": 37.541,
                 "seoul_lon": 126.986,
-                "api_key" : Variable.get("open_weather_api_key"),
-                "schema" : Variable.get("weather_schema"),
-                "table" : Variable.get("weather_table")
+                "api_key": Variable.get("open_weather_api_key"),
+                "schema": Variable.get("weather_schema"),
+                "table": Variable.get("weather_table")
                 },
-            provide_context = True,
-            dag = dag
+            provide_context=True,
+            dag=dag
             )
 
 etl
